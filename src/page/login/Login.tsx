@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Eye, EyeOff, Building2 } from "lucide-react";
+import { Eye, EyeOff, Loader2, Moon, Sun } from "lucide-react";
+import loginImage from "@/assets/login-image.svg";
 import {
   Form,
   FormControl,
@@ -22,6 +23,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "next-themes";
 
 const loginSchema = z.object({
   email: z.string().email("E-mail inválido"),
@@ -32,7 +35,11 @@ type LoginSchema = z.infer<typeof loginSchema>;
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
+  const { theme, setTheme } = useTheme();
+  
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -41,26 +48,59 @@ const Login: React.FC = () => {
     },
   });
 
-  const onSubmit = (data: LoginSchema) => {
-    console.log("Login:", data);
-    toast.success("Login realizado com sucesso");
-    navigate("/admin"); // redireciona para o painel admin
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/admin", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  const onSubmit = async (data: LoginSchema) => {
+    try {
+      setIsLoading(true);
+      await login(data.email, data.password);
+      toast.success("Login realizado com sucesso");
+      navigate("/admin", { replace: true });
+    } catch (error) {
+      toast.error("Credenciais inválidas. Tente novamente.");
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 flex items-center justify-center p-4 font-sans">
-      <Card className="w-full max-w-md shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 font-sans relative">
+      {/* Theme Toggle */}
+      <div className="absolute top-4 right-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          className="w-9 h-9 rounded-lg border border-border/50 bg-background/50 backdrop-blur-sm hover:bg-accent"
+        >
+          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Alternar tema</span>
+        </Button>
+      </div>
+
+      <Card className="w-full max-w-md shadow-2xl border border-border/50 bg-card/95 backdrop-blur-sm">
         <CardHeader className="space-y-4 text-center pb-8">
           <div className="flex justify-center">
-            <div className="w-16 h-16 bg-zinc-900 rounded-xl flex items-center justify-center">
-              <Building2 className="w-8 h-8 text-white" />
+            <div className="w-20 h-20 rounded-xl flex items-center justify-center">
+              <img 
+                src={loginImage} 
+                alt="Residencial Rubim" 
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
           <div className="space-y-2">
-            <CardTitle className="text-2xl font-semibold text-zinc-900">
+            <CardTitle className="text-2xl font-semibold text-card-foreground">
               Residencial Rubim
             </CardTitle>
-            <CardDescription className="text-zinc-600">
+            <CardDescription className="text-muted-foreground">
               Faça login para acessar o sistema
             </CardDescription>
           </div>
@@ -80,7 +120,7 @@ const Login: React.FC = () => {
                         type="email"
                         placeholder="seu@email.com"
                         {...field}
-                        className="h-11 border-zinc-200 focus:border-zinc-400 focus:ring-zinc-400"
+                        className="h-11"
                       />
                     </FormControl>
                     <FormMessage />
@@ -99,12 +139,12 @@ const Login: React.FC = () => {
                           type={showPassword ? "text" : "password"}
                           placeholder="••••••••"
                           {...field}
-                          className="h-11 pr-10 border-zinc-200 focus:border-zinc-400 focus:ring-zinc-400"
+                          className="h-11 pr-10"
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 transition-colors"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                         >
                           {showPassword ? (
                             <EyeOff className="w-4 h-4" />
@@ -120,17 +160,36 @@ const Login: React.FC = () => {
               />
               <Button
                 type="submit"
-                className="w-full h-11 bg-zinc-900 hover:bg-zinc-800 text-white font-medium"
+                disabled={isLoading}
+                className="w-full h-11 font-medium disabled:opacity-50"
               >
-                Entrar
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Entrando...
+                  </>
+                ) : (
+                  "Entrar"
+                )}
               </Button>
             </form>
           </Form>
 
-          <div className="text-center">
-            <button className="text-sm text-zinc-600 hover:text-zinc-900 transition-colors font-medium">
-              Esqueceu sua senha?
-            </button>
+          <div className="space-y-4">
+            <div className="text-center">
+              <button className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">
+                Esqueceu sua senha?
+              </button>
+            </div>
+            
+            <div className="bg-muted/50 rounded-lg p-4 space-y-2 border border-border/50">
+              <h4 className="text-sm font-medium text-foreground mb-2">Contas de teste:</h4>
+              <div className="space-y-1 text-xs text-muted-foreground">
+                <p><strong className="text-foreground">Admin:</strong> admin@residencialrubim.com / admin123</p>
+                <p><strong className="text-foreground">Gestor:</strong> manager@residencialrubim.com / manager123</p>
+                <p><strong className="text-foreground">Morador:</strong> resident@residencialrubim.com / resident123</p>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -41,7 +41,7 @@ export function PaymentTable({
               <div><strong>Forma de Pagamento:</strong> {payment.paymentMethod}</div>
               <div>
                 <strong>Status:</strong>{" "}
-                <Badge className={payment.status === "Paid" ? "bg-green-700 text-white" : "bg-red-700 text-white"}>
+                <Badge variant={payment.status === "Paid" ? "statusActive" : "warningAlt"}>
                   {payment.status === "Paid" ? "Pago" : "Pendente"}
                 </Badge>
               </div>
@@ -93,7 +93,7 @@ export function PaymentTable({
               <TableCell className="border-r border-solid border-border">{payment.paymentDate}</TableCell>
               <TableCell className="border-r border-solid border-border">{payment.paymentMethod}</TableCell>
               <TableCell className="border-r border-solid border-border">
-                <Badge className={payment.status === "Paid" ? "bg-green-700 text-white" : "bg-red-700 text-white"}>
+                <Badge variant={payment.status === "Paid" ? "statusActive" : "warningAlt"}>
                   {payment.status === "Paid" ? "Pago" : "Pendente"}
                 </Badge>
               </TableCell>

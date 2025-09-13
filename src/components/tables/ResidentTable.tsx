@@ -67,11 +67,7 @@ export function ResidentTable({
               <div>
                 <strong>Status:</strong>{" "}
                 <Badge
-                  className={
-                    resident.status === "Active"
-                      ? "bg-green-700 text-white"
-                      : "bg-red-700 text-white"
-                  }
+                  variant={resident.status === "Active" ? "statusActive" : "dangerAlt"}
                 >
                   {resident.status === "Active" ? "Ativo" : "Inativo"}
                 </Badge>
@@ -170,11 +166,7 @@ export function ResidentTable({
               </TableCell>
               <TableCell className="border-r border-solid border-border">
                 <Badge
-                  className={
-                    resident.status === "Active"
-                      ? "bg-green-700 text-white"
-                      : "bg-red-700 text-white"
-                  }
+                  variant={resident.status === "Active" ? "statusActive" : "dangerAlt"}
                 >
                   {resident.status === "Active" ? "Ativo" : "Inativo"}
                 </Badge>
