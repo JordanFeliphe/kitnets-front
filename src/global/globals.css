@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 142 76% 36%;
+    --primary: 24 95% 53%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 4.8% 95.9%;
@@ -32,9 +32,9 @@
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 142 76% 36%;
+    --ring: 240 5.9% 90%;
 
-    --success: 142 76% 36%;
+    --success: 24 95% 53%;
     --success-foreground: 355.7 100% 97.3%;
 
     --warning: 38 92% 50%;
@@ -45,17 +45,17 @@
 
     --radius: 0.75rem;
 
-    /* Enhanced chart colors for business dashboard - GREEN THEME */
-    --chart-1: 142 76% 36%; /* Green - Primary metrics */
-    --chart-2: 134 80% 40%; /* Light Green - Secondary */
-    --chart-3: 125 70% 45%; /* Lighter Green - Tertiary */
-    --chart-4: 152 85% 30%; /* Dark Green - Emphasis */
-    --chart-5: 140 75% 42%; /* Mid Green - Balanced */
+    /* Enhanced chart colors for business dashboard - ORANGE THEME */
+    --chart-1: 24 95% 53%; /* Orange - Primary metrics */
+    --chart-2: 31 81% 56%; /* Light Orange - Secondary */
+    --chart-3: 38 92% 50%; /* Lighter Orange - Tertiary */
+    --chart-4: 20 90% 48%; /* Dark Orange - Emphasis */
+    --chart-5: 27 87% 52%; /* Mid Orange - Balanced */
     --chart-6: 10 80% 58%;  /* Red - Critical (keep for contrast) */
     --chart-7: 45 85% 60%;  /* Yellow - Pending (keep for contrast) */
     
     /* Business-specific colors */
-    --revenue: 142 76% 36%;    /* Green for revenue */
+    --revenue: 24 95% 53%;    /* Orange for revenue */
     --expense: 0 84% 60%;      /* Red for expenses */
     --occupancy: 220 70% 50%;  /* Blue for occupancy */
     --maintenance: 38 92% 50%; /* Orange for maintenance */
@@ -63,7 +63,7 @@
     /* Sidebar colors */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 142 76% 36%;
+    --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
@@ -81,7 +81,7 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 142 76% 36%;
+    --primary: 24 95% 53%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 3.7% 15.9%;
@@ -98,9 +98,9 @@
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 142 76% 36%;
+    --ring: 240 3.7% 15.9%;
 
-    --success: 142 76% 36%;
+    --success: 24 95% 53%;
     --success-foreground: 355.7 100% 97.3%;
 
     --warning: 38 92% 50%;
@@ -109,17 +109,17 @@
     --info: 199 89% 48%;
     --info-foreground: 210 20% 98%;
 
-    /* Dark mode chart colors - GREEN THEME for better contrast */
-    --chart-1: 142 76% 46%; /* Green - Brighter for dark mode */
-    --chart-2: 134 80% 50%; /* Light Green - Enhanced */
-    --chart-3: 125 70% 55%; /* Lighter Green - Brighter */
-    --chart-4: 152 85% 40%; /* Dark Green - Enhanced contrast */
-    --chart-5: 140 75% 52%; /* Mid Green - Balanced */
+    /* Dark mode chart colors - ORANGE THEME for better contrast */
+    --chart-1: 24 95% 63%; /* Orange - Brighter for dark mode */
+    --chart-2: 31 81% 66%; /* Light Orange - Enhanced */
+    --chart-3: 38 92% 60%; /* Lighter Orange - Brighter */
+    --chart-4: 20 90% 58%; /* Dark Orange - Enhanced contrast */
+    --chart-5: 27 87% 62%; /* Mid Orange - Balanced */
     --chart-6: 10 80% 68%;  /* Red - Warmer (keep for contrast) */
     --chart-7: 45 85% 70%;  /* Yellow - Brighter (keep for contrast) */
     
     /* Business-specific dark mode colors */
-    --revenue: 142 76% 46%;    /* Brighter green */
+    --revenue: 24 95% 63%;    /* Brighter orange */
     --expense: 0 84% 70%;      /* Brighter red */
     --occupancy: 220 70% 60%;  /* Brighter blue */
     --maintenance: 38 92% 60%; /* Brighter orange */
@@ -127,7 +127,7 @@
     /* Dark mode sidebar colors */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 142 76% 36%;
+    --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;

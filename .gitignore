@@ -2,8 +2,6 @@
 logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
@@ -11,8 +9,21 @@ node_modules
 dist
 dist-ssr
 *.local
+
+# Environment
 .env
+.env.*
+
+# Claude
+.claude/
+
+# Markdown files
+*.md
+
+# Lock files (using bun)
+package-lock.json
 yarn.lock
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

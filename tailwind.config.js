@@ -6,8 +6,24 @@ export default {
   	extend: {
   		fontFamily: {
   			sans: [
-  				'Inter',
-  				'sans-serif'
+  				'ui-monospace',
+				'SFMono-Regular',
+				'Menlo',
+				'Monaco',
+				'Consolas',
+				'Liberation Mono',
+				'Courier New',
+  				'monospace'
+  			],
+  			mono: [
+  				'ui-monospace',
+  				'SFMono-Regular',
+  				'Menlo',
+  				'Monaco',
+  				'Consolas',
+  				'Liberation Mono',
+  				'Courier New',
+  				'monospace'
   			]
   		},
   		borderRadius: {
@@ -87,6 +103,19 @@ export default {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+  			},
+  			'custom-orange': {
+  				50: '#fef7f0',
+  				100: '#fde8d7',
+  				200: '#fbd0ae',
+  				300: '#f7a97a',
+  				400: '#f17744',
+  				500: '#ec4a1e',
+  				600: '#dd3914',
+  				700: '#b72c13',
+  				800: '#932318',
+  				900: '#723201',
+  				950: '#3f1408',
   			}
   		}
   	}

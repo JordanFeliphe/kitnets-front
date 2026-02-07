@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { AppSidebarResident } from "@/components/app-sidebar-resident";
-import { SiteHeader } from "@/components/site-header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { useAuth } from "@/contexts/AuthContext";
+import { AppSidebarUnified } from "@/app/shared/components/AppSidebarUnified";
+import { SiteHeader } from "@/app/shared/components/site-header";
+import { SidebarInset, SidebarProvider } from "@/app/shared/components/ui/sidebar";
+import { useAuth } from "@/app/shared/contexts/AuthContext";
 
 const ResidentLayout: React.FC = () => {
   const { isAuthenticated, isLoading, user } = useAuth();
@@ -20,13 +20,13 @@ const ResidentLayout: React.FC = () => {
   }
 
   // Verificar se o usuário é realmente um morador
-  if (user?.role !== 'RESIDENT') {
+  if (user?.type !== 'RESIDENT') {
     return <Navigate to="/" replace />;
   }
 
   return (
     <SidebarProvider>
-      <AppSidebarResident />
+      <AppSidebarUnified />
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col gap-4 p-6">
