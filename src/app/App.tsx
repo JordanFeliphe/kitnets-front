@@ -2,66 +2,47 @@ import React from "react"
 import { Routes, Route, Navigate } from "react-router-dom"
 import AdminLayout from "@/app/AdminLayout"
 import ResidentLayout from "@/app/ResidentLayout"
-import Dashboard from "@/page/dashboard/Dashboard"
-import Residents from "@/page/residents/Residents"
-import Payments from "@/page/payments/Payments"
-import Users from "@/pages/users/Users"
-import Auth from "@/pages/Auth"
-import TermsOfService from "@/pages/TermsOfService"
-import PrivacyPolicy from "@/pages/PrivacyPolicy"
-import ResidentDashboard from "@/pages/resident/Dashboard"
-import ResidentProfile from "@/pages/resident/Profile"
-import ResidentPayments from "@/pages/resident/Payments"
-import ResidentInvoices from "@/pages/resident/Invoices"
-import ResidentDocuments from "@/pages/resident/Documents"
-import UnitsPage from "@/pages/admin/Units"
-import ContractsPage from "@/pages/admin/Contracts"
-import TransactionsPage from "@/pages/admin/Transactions"
-import ReportsPage from "@/pages/admin/Reports"
-import LogsPage from "@/pages/admin/Logs"
-import { ProtectedRoute } from "@/components/ProtectedRoute"
+import Dashboard from "@/pages/admin/dashboard/index"
+import ResidentsPage from "@/pages/admin/residents/index"
+import Payments from "@/pages/admin/payments/index"
+import Users from "@/pages/admin/users/index"
+import Login from "@/pages/auth/index"
+import TermsOfService from "@/pages/public/TermsOfService"
+import PrivacyPolicy from "@/pages/public/PrivacyPolicy"
+import ResidentDashboard from "@/pages/resident/dashboard/index"
+import ResidentProfile from "@/pages/resident/profile/index"
+import ResidentPayments from "@/pages/resident/payments/index"
+import ResidentInvoices from "@/pages/resident/invoices/index"
+import ResidentDocuments from "@/pages/resident/documents/index"
+import UnitsPage from "@/pages/admin/units/index"
+import ContractsPage from "@/pages/admin/contracts/index"
+import TransactionsPage from "@/pages/admin/transactions/index"
+import ReportsPage from "@/pages/admin/reports/index"
+import LogsPage from "@/pages/admin/logs/index"
+import { ProtectedRoute } from "@/app/shared/components/ProtectedRoute"
 
 const App: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={
-        <ProtectedRoute requireAuth={false}>
-          <Auth />
-        </ProtectedRoute>
-      } />
+      {/* Public routes */}
       <Route path="/auth" element={
         <ProtectedRoute requireAuth={false}>
-          <Auth />
+          <Login />
         </ProtectedRoute>
       } />
       <Route path="/terms" element={<TermsOfService />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
-      
-      {/* Resident Routes */}
-      <Route path="/resident" element={
-        <ProtectedRoute allowedRoles={['RESIDENT']}>
-          <ResidentLayout />
-        </ProtectedRoute>
-      }>
-        <Route index element={<ResidentDashboard />} />
-        <Route path="profile" element={<ResidentProfile />} />
-        <Route path="payments" element={<ResidentPayments />} />
-        <Route path="invoices" element={<ResidentInvoices />} />
-        <Route path="documents" element={<ResidentDocuments />} />
-        <Route path="documents/contract" element={<ResidentDocuments />} />
-        <Route path="documents/receipts" element={<ResidentDocuments />} />
-        <Route path="documents/rules" element={<ResidentDocuments />} />
-      </Route>
-      
+
       {/* Admin Routes */}
       <Route path="/admin" element={
-        <ProtectedRoute allowedRoles={['ADMIN', 'MANAGER']}>
+        <ProtectedRoute allowedUserTypes={['ADMIN']}>
           <AdminLayout />
         </ProtectedRoute>
       }>
         <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="units" element={<UnitsPage />} />
-        <Route path="residents" element={<Residents />} />
+        <Route path="residents" element={<ResidentsPage />} />
         <Route path="leases" element={<ContractsPage />} />
         <Route path="transactions" element={<TransactionsPage />} />
         <Route path="reports" element={<ReportsPage />} />
@@ -69,8 +50,28 @@ const App: React.FC = () => {
         <Route path="users" element={<Users />} />
         <Route path="logs" element={<LogsPage />} />
       </Route>
-      
-      <Route path="*" element={<Navigate to="/" replace />} />
+
+      {/* Resident Routes */}
+      <Route path="/resident" element={
+        <ProtectedRoute allowedUserTypes={['RESIDENT']}>
+          <ResidentLayout />
+        </ProtectedRoute>
+      }>
+        <Route index element={<ResidentDashboard />} />
+        <Route path="dashboard" element={<ResidentDashboard />} />
+        <Route path="profile" element={<ResidentProfile />} />
+        <Route path="payments" element={<ResidentPayments />} />
+        <Route path="invoices" element={<ResidentInvoices />} />
+        <Route path="documents" element={<ResidentDocuments />} />
+        <Route path="documents/contract" element={<ResidentDocuments />} />
+        <Route path="documents/receipts" element={<ResidentDocuments />} />
+        <Route path="documents/rules" element={<ResidentDocuments />} />
+        <Route path="notices" element={<ResidentDocuments />} />
+      </Route>
+
+      {/* Fallback routes */}
+      <Route path="/" element={<Navigate to="/auth" replace />} />
+      <Route path="*" element={<Navigate to="/auth" replace />} />
     </Routes>
   )
 }
